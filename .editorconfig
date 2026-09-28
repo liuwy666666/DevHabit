@@ -1,0 +1,48 @@
+# 表明这是根配置文件，不再向上搜索
+root = true
+
+# 所有文件通用设置
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# C# 源文件特定设置
+[*.cs]
+indent_size = 4
+
+#### C# 代码风格约定 ####
+csharp_style_var_for_built_in_types = false
+csharp_style_var_when_type_is_apparent = true
+csharp_style_var_elsewhere = false
+csharp_prefer_braces = true:warning
+dotnet_style_require_accessibility_modifiers = for_non_interface_members:warning
+csharp_new_line_before_open_brace = all
+
+#### 命名规则：私有字段下划线 + 驼峰 ####
+dotnet_naming_rule.private_fields_should_be_underscored.symbols = private_fields
+dotnet_naming_rule.private_fields_should_be_underscored.style = underscore_camel
+dotnet_naming_rule.private_fields_should_be_underscored.severity = warning
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.underscore_camel.required_prefix = _
+dotnet_naming_style.underscore_camel.capitalization = camel_case
+
+#### 分析器严重性覆盖（将部分规则从 Error 降级或关闭）####
+# 示例：CA1515 与 internal 建议（你之前遇到的）——关闭它
+dotnet_diagnostic.CA1515.severity = none
+
+# 示例：SonarAnalyzer 认知复杂度规则（建议先设为 warning 观察）
+dotnet_diagnostic.S3776.severity = warning
+
+# 示例：SonarAnalyzer 规则——若认为不合理可关闭
+dotnet_diagnostic.S112.severity = none
+dotnet_diagnostic.S125.severity = none
+
+# 示例：CA2007 规则——若认为不合理可关闭
+dotnet_diagnostic.CA2007.severity = none
