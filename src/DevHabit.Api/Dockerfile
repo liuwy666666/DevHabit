@@ -8,8 +8,16 @@ USER app
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 ARG configuration=Release
 WORKDIR /src
+
+# 先把根目录的公共构建文件复制进来
+COPY ["Directory.Build.props", "."]
+COPY ["Directory.Packages.props", "."]
+
+# 再复制项目文件并还原依赖
 COPY ["src/DevHabit.Api/DevHabit.Api.csproj", "src/DevHabit.Api/"]
 RUN dotnet restore "src/DevHabit.Api/DevHabit.Api.csproj"
+
+
 COPY . .
 WORKDIR "/src/src/DevHabit.Api"
 RUN dotnet build "DevHabit.Api.csproj" -c $configuration -o /app/build
