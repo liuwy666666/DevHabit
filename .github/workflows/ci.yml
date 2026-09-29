@@ -9,14 +9,14 @@ on:
 
 jobs:
     build:
-        runs-on: ubuntu-latest
+        runs-on: ubuntu-24.04 #  Ubuntu版本:24.04
 
         steps:
             - name: 检出代码
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5 # Node.js 24
 
             - name: 安装 .NET 10 SDK
-              uses: actions/setup-dotnet@v4
+              uses: actions/setup-dotnet@v5 # Node.js 24
               with:
                   dotnet-version: "10.0.x"
 
