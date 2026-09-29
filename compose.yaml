@@ -11,9 +11,10 @@ services:
       - 5001:8081
 
     environment:
-      # 配置 OTLP 导出器的端点和协议
-      - OTLP_EXPORTER_ENDPOINT=http://devhabit.aspire-dashboard:18889
-      - OLTP_EXPORTER_OTLP_PROTOCOL=grpc
+      # 配置 OTEL 导出器的端点和协议
+      # - OTEL_EXPORTER_OTLP_ENDPOINT=http://devhabit.aspire-dashboard:18889 # docker中运行（生产）
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:18889 # 本地运行.NET（开发）
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
   devhabit.seq:
     image: datalust/seq:2024.3 # or latest
     environment:
@@ -21,7 +22,7 @@ services:
     volumes:
       - ./.containers/seq_data:/data
     ports:
-      - 8080:80
+      - 8008:80
       - 5341:5341
 
   devhabit.aspire-dashboard:
@@ -30,3 +31,4 @@ services:
       DOTNET_DASHBOARD_UNSECURED_ALLOW_ANONYMOUS: true
     ports:
       - 18888:18888
+      - 18889:18889

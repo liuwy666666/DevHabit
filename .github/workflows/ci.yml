@@ -1,0 +1,27 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+    workflow_dispatch: # 4 空格 ← 和上面两个对齐
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: 检出代码
+              uses: actions/checkout@v4
+
+            - name: 安装 .NET 10 SDK
+              uses: actions/setup-dotnet@v4
+              with:
+                  dotnet-version: "10.0.x"
+
+            - name: 还原依赖
+              run: dotnet restore
+
+            - name: 构建
+              run: dotnet build --configuration Release --no-restore
