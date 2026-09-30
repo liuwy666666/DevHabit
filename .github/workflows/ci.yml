@@ -27,4 +27,4 @@ jobs:
               run: dotnet build --configuration Release --no-restore
 
             - name: 运行测试
-              run: dotnet test --configuration Release --no-build
+              run: dotnet test --configuration Release
